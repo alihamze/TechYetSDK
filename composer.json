@@ -1,0 +1,15 @@
+{
+    "name": "alihamze/tech-yet-sdk",
+    "authors": [
+        {
+            "name": "Ali Hamze",
+            "email": "ali@alihamze.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "TechYet\\": "TechYet/"
+        }
+    }
+}

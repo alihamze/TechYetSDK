@@ -10,6 +10,7 @@
 	
 	
 	use TechYet\Core\Config;
+	use TechYet\Rest\Client;
 	use TechYet\Services\Messages\Messages;
 	use TechYet\Services\Service;
 	use TechYet\Services\ServiceException;
@@ -22,6 +23,7 @@
 	class TechYet {
 		/** @var Config $config The config */
 		private $config;
+		private $client;
 		
 		private $_messages;
 		
@@ -35,9 +37,16 @@
 		
 		public function getMessages() {
 			if (empty($this->_messages))
-				$this->_messages = null;
+				$this->_messages = new Messages($this);
 			
 			return $this->_messages;
+		}
+		
+		public function getClient() {
+			if (empty($this->client))
+				$this->client = new Client();
+			
+			return $this->client;
 		}
 		
 		/**

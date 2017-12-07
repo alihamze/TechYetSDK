@@ -33,7 +33,7 @@
 		private $returnData;
 		private $connection;
 		
-		public function __construct($url, $method, $parameters) {
+		public function __construct($url = null, $method = null, $parameters = null) {
 			$this->connection = curl_init();
 			
 			$this->setUrl($url);

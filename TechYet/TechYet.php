@@ -69,6 +69,13 @@
 		}
 		
 		/**
+		 * @return Config
+		 */
+		public function getConfig() {
+			return $this->config;
+		}
+		
+		/**
 		 * Returns service helper
 		 * @param $name
 		 * @return Service

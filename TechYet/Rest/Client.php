@@ -10,6 +10,9 @@
 	
 	
 	class Client {
+		const HTTP_METHOD_POST = 'POST';
+		const HTTP_METHOD_GET = 'GET';
+		
 		/**
 		 * @var String $url
 		 */
@@ -39,6 +42,13 @@
 			$this->setUrl($url);
 			$this->setHttpMethod($method);
 			$this->setParameters($parameters);
+		}
+		
+		/**
+		 * Resets the client for a new request
+		 */
+		public function reset() {
+			$this->setHttpMethod(static::HTTP_METHOD_GET);
 		}
 		
 		public function send($expectedStatus = 200, $rawBody = false) {

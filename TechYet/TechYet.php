@@ -12,6 +12,7 @@
 	use TechYet\Core\Config;
 	use TechYet\Rest\Client;
 	use TechYet\Services\Messages\Messages;
+	use TechYet\Services\PhoneNumbers\PhoneNumbers;
 	use TechYet\Services\Service;
 	use TechYet\Services\ServiceException;
 	
@@ -19,6 +20,7 @@
 	 * TechYet SDK Client
 	 * @package TechYet
 	 * @property Messages messages
+	 * @property PhoneNumbers phoneNumbers
 	 */
 	class TechYet {
 		/** @var Config $config The config */
@@ -26,6 +28,7 @@
 		private $client;
 		
 		private $_messages;
+		private $_phoneNumbers;
 		
 		/**
 		 * Initialize the TechYet SDK
@@ -35,6 +38,9 @@
 			$this->config = $config;
 		}
 		
+		/**
+		 * @return Messages
+		 */
 		public function getMessages() {
 			if (empty($this->_messages))
 				$this->_messages = new Messages($this);
@@ -42,6 +48,19 @@
 			return $this->_messages;
 		}
 		
+		/**
+		 * @return PhoneNumbers
+		 */
+		public function getPhoneNumbers() {
+			if (empty($this->_phoneNumbers))
+				$this->_phoneNumbers = new PhoneNumbers($this);
+			
+			return $this->_phoneNumbers;
+		}
+		
+		/**
+		 * @return Client
+		 */
 		public function getClient() {
 			if (empty($this->client))
 				$this->client = new Client();

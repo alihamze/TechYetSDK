@@ -9,18 +9,17 @@
 	namespace TechYet;
 	
 	
+	use TechYet\Core\Config;
+	
 	class TechYet {
-		/** The API Host */
-		const API_BASE_ENDPOINT = 'https://techyet.com/api/';
-		
-		/** @var string $token The API token */
-		private $token;
+		/** @var Config $config The config */
+		private $config;
 		
 		/**
 		 * Initialize the TechYet SDK
-		 * @param $token
+		 * @param Config $config
 		 */
-		public function __construct($token) {
-			$this->token = $token;
+		public function __construct(Config $config) {
+			$this->config = $config;
 		}
 	}

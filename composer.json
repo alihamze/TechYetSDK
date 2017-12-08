@@ -1,9 +1,10 @@
 {
-    "name": "alihamze/tech-yet-sdk",
+    "name": "techyet/sdk",
+    "license": "MIT",
     "authors": [
         {
             "name": "Ali Hamze",
-            "email": "ali@alihamze.com"
+            "email": "ali@techyet.com"
         }
     ],
     "require": {

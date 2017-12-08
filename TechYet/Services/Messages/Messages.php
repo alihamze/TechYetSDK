@@ -47,4 +47,8 @@
 			$details = json_decode($client->getReturnData());
 			return new Message($details);
 		}
+		
+		public function getIndividualItemType(): string {
+			return Message::class;
+		}
 	}

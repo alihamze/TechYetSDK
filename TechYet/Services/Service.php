@@ -31,4 +31,6 @@
 		public function getTechYet() {
 			return $this->_techYet;
 		}
+		
+		abstract public function getIndividualItemType(): string;
 	}

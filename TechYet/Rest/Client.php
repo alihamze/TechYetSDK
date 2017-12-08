@@ -25,7 +25,10 @@
 		 * @var mixed[]
 		 */
 		private $parameters;
-		
+		/**
+		 * @var string[]
+		 */
+		private $requestHeaders = [];
 		/**
 		 * @var String
 		 */
@@ -49,14 +52,28 @@
 		 */
 		public function reset() {
 			$this->setHttpMethod(static::HTTP_METHOD_GET);
+			$this->requestHeaders = [
+				'Accept' => 'application/json',
+			];
 		}
 		
+		/**
+		 * Sends the request
+		 * @param int $expectedStatus
+		 * @param bool $rawBody
+		 * @throws ClientException
+		 */
 		public function send($expectedStatus = 200, $rawBody = false) {
 			curl_setopt($this->connection, CURLOPT_URL, $this->url);
 			curl_setopt($this->connection, CURLOPT_VERBOSE, 0);
 			curl_setopt($this->connection, CURLOPT_CONNECTTIMEOUT, 15);
 			curl_setopt($this->connection, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($this->connection, CURLOPT_HEADER, 1);
+			$headers = [];
+			foreach ($this->requestHeaders as $name => $value) {
+				$headers[] = $name . ': ' . $value;
+			}
+			curl_setopt($this->connection, CURLOPT_HTTPHEADER, $headers);
 			
 			if ($this->getHttpMethod() == 'POST') {
 				curl_setopt($this->connection, CURLOPT_POST, true);
@@ -72,6 +89,19 @@
 					curl_setopt($this->connection, CURLOPT_POSTFIELDS, $this->getParameters());
 				}
 			} else {
+				if (!empty($this->parameters)) {
+					$parametersString = '?';
+					$urlHasParameters = strpos($this->url, '?');
+					if ($urlHasParameters !== false) {
+						$parametersString = '&';
+					}
+					foreach ($this->parameters as $name => $value) {
+						if (strlen($parametersString) > 1)
+							$parametersString .= '&';
+						$parametersString .= urlencode($name) . '=' . urlencode($value);
+					}
+					curl_setopt($this->connection, CURLOPT_URL, $this->url . $parametersString);
+				}
 				curl_setopt($this->connection, CURLOPT_POST, false);
 			}
 			
@@ -99,14 +129,15 @@
 		 * @param String $url
 		 */
 		public function setUrl($url) {
-			$scheme = substr($url, 0, '://');
-			$url = str_replace('://', '', $url);
+			$scheme = substr($url, 0, strpos($url, '://'));
+			$url = str_replace($scheme . '://', '', $url);
 			$url = str_replace('//', '/', $url);
-			if (!empty($scheme))
-				$url = $scheme . '://' . $url;
-			else
-				$url = 'https://' . $url;
-			
+			if (!empty($url)) {
+				if (!empty($scheme))
+					$url = $scheme . '://' . $url;
+				else
+					$url = 'https://' . $url;
+			}
 			$this->url = $url;
 		}
 		

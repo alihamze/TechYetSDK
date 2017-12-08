@@ -45,7 +45,7 @@
 				throw new MessageException('Could not send message', 0, $e);
 			}
 			
-			$details = json_decode($client->getReturnData());
+			$details = json_decode($client->getReturnData(), true);
 			
 			return new Message($details);
 		}
@@ -57,8 +57,8 @@
 		 * @return ResultList
 		 * @throws MessageException
 		 */
-		public function read($phoneNumber = null, $options) {
-			$url = '%s/api/phones/%s/texts/';
+		public function retrieve($phoneNumber = null, $options = []) {
+			$url = '%s/phones/%s/texts/';
 			$techYet = $this->getTechYet();
 			$client = $techYet->getClient();
 			$url = sprintf($url, $techYet->getConfig()->getUrl(), $phoneNumber);
@@ -77,7 +77,7 @@
 			} catch (ClientException $e) {
 				throw new MessageException('Could not list messages', 0, $e);
 			}
-			$details = json_decode($client->getReturnData());
+			$details = json_decode($client->getReturnData(), true);
 			if (!$details['success'])
 				throw new MessageException('Could not list messages', MessageException::ERROR_READ);
 			

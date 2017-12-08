@@ -9,6 +9,7 @@
 	namespace TechYet\Services\Messages;
 	
 	
+	use TechYet\Core\ResultList;
 	use TechYet\Rest\ClientException;
 	use TechYet\Services\Service;
 	
@@ -45,7 +46,42 @@
 			}
 			
 			$details = json_decode($client->getReturnData());
+			
 			return new Message($details);
+		}
+		
+		/**
+		 * Retrieves messages
+		 * @param string $phoneNumber
+		 * @param $options
+		 * @return ResultList
+		 * @throws MessageException
+		 */
+		public function read($phoneNumber = null, $options) {
+			$url = '%s/api/phones/%s/texts/';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl(), $phoneNumber);
+			
+			$data = array_merge($options, [
+				'api_token' => $techYet->getConfig()->getToken(),
+			]);
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_GET);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new MessageException('Could not list messages', 0, $e);
+			}
+			$details = json_decode($client->getReturnData());
+			if (!$details['success'])
+				throw new MessageException('Could not list messages', MessageException::ERROR_READ);
+			
+			return new ResultList($this, $details, $options);
 		}
 		
 		public function getIndividualItemType(): string {

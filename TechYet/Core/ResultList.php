@@ -20,15 +20,18 @@
 		private $_total;
 		private $_perPage;
 		private $_results;
+		private $_options;
 		
 		/**
 		 * ResultList constructor.
 		 * @param Service $service
 		 * @param array $results
+		 * @param array $options
 		 * @throws CoreException
 		 */
-		public function __construct(Service $service, array $results) {
+		public function __construct(Service $service, array $results, array $options = []) {
 			$this->_service = $service;
+			$this->_options = $options;
 			
 			$this->_success = boolval($results['success']);
 			$this->_currentPage = $results['current_page'];

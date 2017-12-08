@@ -10,5 +10,5 @@
 	
 	
 	class MessageException extends \Exception {
-		
+		const ERROR_READ = 1000;
 	}

@@ -99,6 +99,14 @@
 		 * @param String $url
 		 */
 		public function setUrl($url) {
+			$scheme = substr($url, 0, '://');
+			$url = str_replace('://', '', $url);
+			$url = str_replace('//', '/', $url);
+			if (!empty($scheme))
+				$url = $scheme . '://' . $url;
+			else
+				$url = 'https://' . $url;
+			
 			$this->url = $url;
 		}
 		

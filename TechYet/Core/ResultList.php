@@ -19,7 +19,7 @@
 		private $_lastPage;
 		private $_total;
 		private $_perPage;
-		private $_results;
+		private $_results = [];
 		private $_options;
 		
 		/**

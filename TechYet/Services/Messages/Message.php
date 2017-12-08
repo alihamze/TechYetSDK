@@ -12,15 +12,15 @@
 	use TechYet\Core\ListItem;
 	
 	class Message extends ListItem {
-		private $_id;
-		private $_status;
-		private $_body;
-		private $_from;
-		private $_to;
-		private $_date;
-		private $_errorCode;
-		private $_hasMedia;
-		private $_segments;
+		protected $_id;
+		protected $_status;
+		protected $_body;
+		protected $_from;
+		protected $_to;
+		protected $_date;
+		protected $_errorCode;
+		protected $_hasMedia;
+		protected $_segments;
 		
 		/**
 		 * Constructs from the API data

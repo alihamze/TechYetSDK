@@ -12,29 +12,29 @@
 	use TechYet\Core\ListItem;
 	
 	class Message extends ListItem {
-		protected $_id;
-		protected $_status;
-		protected $_body;
-		protected $_from;
-		protected $_to;
-		protected $_date;
-		protected $_errorCode;
-		protected $_hasMedia;
-		protected $_segments;
+		protected $id;
+		protected $status;
+		protected $body;
+		protected $from;
+		protected $to;
+		protected $date;
+		protected $errorCode;
+		protected $hasMedia;
+		protected $segments;
 		
 		/**
 		 * Constructs from the API data
 		 * @param array $data
 		 */
 		public function __construct(array $data) {
-			$this->_id = $data['id'];
-			$this->_status = $data['status'];
-			$this->_body = $data['message'];
-			$this->_from = $data['from'];
-			$this->_to = $data['to'];
-			$this->_date = $data['date'];
-			$this->_errorCode = $data['error_code'];
-			$this->_hasMedia = boolval($data['has_media']);
-			$this->_segments = $data['segments'];
+			$this->id = $data['id'];
+			$this->status = $data['status'];
+			$this->body = $data['message'];
+			$this->from = $data['from'];
+			$this->to = $data['to'];
+			$this->date = $data['date'];
+			$this->errorCode = $data['error_code'];
+			$this->hasMedia = boolval($data['has_media']);
+			$this->segments = $data['segments'];
 		}
 	}

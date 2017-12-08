@@ -24,9 +24,9 @@
 		
 		/**
 		 * Constructs from the API data
-		 * @param array[] $data
+		 * @param array $data
 		 */
-		public function __construct($data) {
+		public function __construct(array $data) {
 			$this->_id = $data['id'];
 			$this->_status = $data['status'];
 			$this->_body = $data['message'];

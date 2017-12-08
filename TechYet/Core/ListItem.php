@@ -12,9 +12,9 @@
 	abstract class ListItem {
 		/**
 		 * Constructs from the API data
-		 * @param array[] $data
+		 * @param array $data
 		 */
-		abstract public function __construct($data);
+		abstract public function __construct(array $data);
 		
 		/**
 		 * @param $name

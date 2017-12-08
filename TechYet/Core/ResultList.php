@@ -47,4 +47,8 @@
 				$this->_results[] = new $class($result);
 			}
 		}
+		
+		public function read() {
+			return $this->_results;
+		}
 	}

@@ -51,4 +51,12 @@
 		public function read() {
 			return $this->_results;
 		}
+		
+		public function hasNextPage(): bool {
+			return $this->_currentPage < $this->_lastPage;
+		}
+		
+		public function nextPage(): ResultList {
+			return $this->_service->retrieve(array_merge($this->_options, ['page' => $this->_currentPage + 1]));
+		}
 	}

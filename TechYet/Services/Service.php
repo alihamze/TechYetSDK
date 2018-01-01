@@ -9,6 +9,7 @@
 	namespace TechYet\Services;
 	
 	
+	use TechYet\Core\ResultList;
 	use TechYet\TechYet;
 	
 	abstract class Service {
@@ -33,4 +34,5 @@
 		}
 		
 		abstract public function getIndividualItemType(): string;
+		abstract public function retrieve($options = []): ResultList;
 	}

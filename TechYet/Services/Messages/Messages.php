@@ -52,12 +52,12 @@
 		
 		/**
 		 * Retrieves messages
-		 * @param string $phoneNumber
 		 * @param $options
 		 * @return ResultList
 		 * @throws MessageException
 		 */
-		public function retrieve($phoneNumber = null, $options = []) {
+		public function retrieve($options = []): ResultList {
+			$phoneNumber = isset($options['phoneNumber']) ? $options['phoneNumber'] : null;
 			$url = '%s/phones/%s/texts/';
 			$techYet = $this->getTechYet();
 			$client = $techYet->getClient();

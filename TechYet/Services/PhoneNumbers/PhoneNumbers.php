@@ -20,7 +20,7 @@
 		 * @return ResultList
 		 * @throws PhoneNumberException
 		 */
-		public function retrieve($options = []) {
+		public function retrieve($options = []): ResultList {
 			$url = '%s/phones/numbers/';
 			$techYet = $this->getTechYet();
 			$client = $techYet->getClient();

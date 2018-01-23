@@ -47,6 +47,36 @@
 			return new ResultList($this, $details, $options);
 		}
 		
+		/**
+		 * @param $options
+		 * @return PhoneNumber
+		 * @throws PhoneNumberException
+		 */
+		public function create($options): PhoneNumber {
+			$url = '%s/phones/numbers/';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl());
+			
+			$data = array_merge($options, [
+				'api_token' => $techYet->getConfig()->getToken(),
+			]);
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_POST);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new PhoneNumberException('Could not purchase phone number', 0, $e);
+			}
+			$details = json_decode($client->getReturnData(), true);
+			
+			return new PhoneNumber($details);
+		}
+		
 		public function getIndividualItemType(): string {
 			return PhoneNumber::class;
 		}

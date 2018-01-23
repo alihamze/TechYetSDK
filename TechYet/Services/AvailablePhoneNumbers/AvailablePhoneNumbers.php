@@ -42,11 +42,11 @@
 			try {
 				$client->send();
 			} catch (ClientException $e) {
-				throw new AvailablePhoneNumbersException('Could not list messages', 0, $e);
+				throw new AvailablePhoneNumbersException('Could not list phone numbers', 0, $e);
 			}
 			$details = json_decode($client->getReturnData(), true);
 			if (!$details['success'])
-				throw new AvailablePhoneNumbersException('Could not list messages', AvailablePhoneNumbersException::ERROR_READ);
+				throw new AvailablePhoneNumbersException('Could not list phone numbers', AvailablePhoneNumbersException::ERROR_READ);
 			
 			return new ResultList($this, $details, $options);
 		}

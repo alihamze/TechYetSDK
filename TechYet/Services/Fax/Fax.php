@@ -41,6 +41,10 @@
 			$this->files = $data['files'];
 		}
 		
+		/**
+		 * @return string
+		 * @throws FaxException
+		 */
 		public function retrieveFileUrl() {
 			return $this->service->retrieveFileUrl($this);
 		}

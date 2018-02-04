@@ -20,6 +20,39 @@
 		}
 		
 		/**
+		 * @param $id
+		 * @param array $options
+		 * @return Fax
+		 * @throws FaxException
+		 */
+		public function retrieveFax($id, $options = []) {
+			$url = '%s/fax/%s';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl(), $id);
+			
+			$data = array_merge($options, [
+				'api_token' => $techYet->getConfig()->getToken(),
+			]);
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_GET);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new FaxException('Could not retrieve fax', 0, $e);
+			}
+			$details = json_decode($client->getReturnData(), true);
+			if (!$details['success'])
+				throw new FaxException('Could not retrieve fax', FaxException::ERROR_READ);
+			
+			return new Fax($details['results'][0], $this);
+		}
+		
+		/**
 		 * @param array $options
 		 * @return ResultList
 		 * @throws FaxException

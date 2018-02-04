@@ -12,6 +12,7 @@
 	use TechYet\Core\Config;
 	use TechYet\Rest\Client;
 	use TechYet\Services\AvailablePhoneNumbers\AvailablePhoneNumbers;
+	use TechYet\Services\Fax\Fax;
 	use TechYet\Services\Fax\Faxes;
 	use TechYet\Services\Messages\Messages;
 	use TechYet\Services\PhoneNumbers\PhoneNumbers;
@@ -75,11 +76,15 @@
 		}
 		
 		/**
-		 * @return Faxes
+		 * @return Faxes|Fax
+		 * @throws Services\Fax\FaxException
 		 */
-		public function getFaxes() {
+		public function getFaxes($id = null) {
 			if (empty($this->_faxes))
 				$this->_faxes = new Faxes($this);
+			
+			if (!empty($id))
+				return $this->_faxes->retrieveFax($id);
 			
 			return $this->_faxes;
 		}
@@ -111,6 +116,19 @@
 			$method = 'get' . ucfirst($name);
 			if (method_exists($this, $method))
 				return $this->$method();
+			throw new ServiceException('Unknown service ' . $name);
+		}
+		
+		/**
+		 * @param $name
+		 * @param $arguments
+		 * @return mixed
+		 * @throws ServiceException
+		 */
+		public function __call($name, $arguments) {
+			$method = 'get' . ucfirst($name);
+			if (method_exists($this, $method))
+				return call_user_func_array([$this, $method], $arguments);
 			throw new ServiceException('Unknown service ' . $name);
 		}
 	}

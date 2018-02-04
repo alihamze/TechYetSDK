@@ -12,6 +12,7 @@
 	use TechYet\Core\Config;
 	use TechYet\Rest\Client;
 	use TechYet\Services\AvailablePhoneNumbers\AvailablePhoneNumbers;
+	use TechYet\Services\Fax\Faxes;
 	use TechYet\Services\Messages\Messages;
 	use TechYet\Services\PhoneNumbers\PhoneNumbers;
 	use TechYet\Services\Service;
@@ -23,6 +24,7 @@
 	 * @property Messages messages
 	 * @property PhoneNumbers phoneNumbers
 	 * @property AvailablePhoneNumbers availablePhoneNumbers
+	 * @property Faxes faxes
 	 */
 	class TechYet {
 		/** @var Config $config The config */
@@ -32,6 +34,7 @@
 		private $_messages;
 		private $_phoneNumbers;
 		private $_availablePhoneNumbers;
+		private $_faxes;
 		
 		/**
 		 * Initialize the TechYet SDK
@@ -69,6 +72,16 @@
 				$this->_availablePhoneNumbers = new AvailablePhoneNumbers($this);
 			
 			return $this->_availablePhoneNumbers;
+		}
+		
+		/**
+		 * @return Faxes
+		 */
+		public function getFaxes() {
+			if (empty($this->_faxes))
+				$this->_faxes = new Faxes($this);
+			
+			return $this->_faxes;
 		}
 		
 		/**

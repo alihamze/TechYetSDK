@@ -10,6 +10,7 @@
 	
 	
 	use TechYet\Core\ListItem;
+	use TechYet\Services\Service;
 	
 	class Message extends ListItem {
 		protected $id;
@@ -25,8 +26,9 @@
 		/**
 		 * Constructs from the API data
 		 * @param array $data
+		 * @param Service $service
 		 */
-		public function __construct(array $data) {
+		public function __construct(array $data, Service $service) {
 			$this->id = $data['id'];
 			$this->status = $data['status'];
 			$this->body = $data['message'];

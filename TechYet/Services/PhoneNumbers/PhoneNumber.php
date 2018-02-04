@@ -10,6 +10,7 @@
 	
 	
 	use TechYet\Core\ListItem;
+	use TechYet\Services\Service;
 	
 	class PhoneNumber extends ListItem {
 		protected $id;
@@ -19,8 +20,9 @@
 		/**
 		 * Constructs from the API data
 		 * @param array $data
+		 * @param Service $service
 		 */
-		public function __construct(array $data) {
+		public function __construct(array $data, Service $service) {
 			$this->id = $data['id'];
 			$this->phoneNumber = $data['phone_number'];
 			$this->capabilities = $data['capabilities'];

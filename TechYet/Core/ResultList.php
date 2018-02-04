@@ -44,7 +44,7 @@
 				throw new CoreException('Invalid individual item type');
 			
 			foreach ($results['results'] as $result) {
-				$this->_results[] = new $class($result);
+				$this->_results[] = new $class($result, $service);
 			}
 		}
 		

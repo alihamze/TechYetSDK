@@ -9,12 +9,15 @@
 	namespace TechYet\Core;
 	
 	
+	use TechYet\Services\Service;
+	
 	abstract class ListItem {
 		/**
 		 * Constructs from the API data
 		 * @param array $data
+		 * @param Service $service
 		 */
-		abstract public function __construct(array $data);
+		abstract public function __construct(array $data, Service $service);
 		
 		/**
 		 * @param $name

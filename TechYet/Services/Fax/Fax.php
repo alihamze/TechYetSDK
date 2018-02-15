@@ -23,6 +23,7 @@
 		protected $quality;
 		protected $num_pages;
 		protected $files;
+		protected $date;
 		
 		/**
 		 * Constructs from the API data
@@ -39,6 +40,7 @@
 			$this->quality = $data['quality'];
 			$this->num_pages = $data['num_pages'];
 			$this->files = $data['files'];
+			$this->date = $data['date'];
 		}
 		
 		/**

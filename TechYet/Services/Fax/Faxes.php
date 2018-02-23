@@ -20,6 +20,44 @@
 		}
 		
 		/**
+		 * @param $to
+		 * @param $from
+		 * @param $fileUrl
+		 * @return Fax
+		 * @throws FaxException
+		 */
+		public function create($to, $from, $fileUrl) {
+			$url = '%s/fax/';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl());
+			
+			$data = [
+				'api_token' => $techYet->getConfig()->getToken(),
+				'to'        => $to,
+				'from'      => $from,
+				'url'       => $fileUrl,
+			];
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_POST);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new FaxException('Could not send fax', 0, $e);
+			}
+			
+			$details = json_decode($client->getReturnData(), true);
+			if (!$details['success'])
+				throw new FaxException('Could not send fax', FaxException::ERROR_SEND);
+			
+			return new Fax($details['results'][0], $this);
+		}
+		
+		/**
 		 * @param $id
 		 * @param array $options
 		 * @return Fax

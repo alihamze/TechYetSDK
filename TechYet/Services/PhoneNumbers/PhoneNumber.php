@@ -12,6 +12,13 @@
 	use TechYet\Core\ListItem;
 	use TechYet\Services\Service;
 	
+	/**
+	 * Class PhoneNumber
+	 * @package TechYet\Services\PhoneNumbers
+	 * @property string $id
+	 * @property string $phoneNumber
+	 * @property array $capabilities
+	 */
 	class PhoneNumber extends ListItem {
 		protected $id;
 		protected $phoneNumber;

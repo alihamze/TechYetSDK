@@ -12,6 +12,19 @@
 	use TechYet\Core\ListItem;
 	use TechYet\Services\Service;
 	
+	/**
+	 * Class Fax
+	 * @package TechYet\Services\Fax
+	 * @property string $id
+	 * @property string $to
+	 * @property string $from
+	 * @property string $direction
+	 * @property string $status
+	 * @property string $quality
+	 * @property int $num_pages
+	 * @property array $files
+	 * @property string $date
+	 */
 	class Fax extends ListItem {
 		/** @var Faxes $service */
 		private $service;

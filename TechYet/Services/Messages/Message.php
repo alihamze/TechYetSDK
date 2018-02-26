@@ -12,6 +12,19 @@
 	use TechYet\Core\ListItem;
 	use TechYet\Services\Service;
 	
+	/**
+	 * Class Message
+	 * @package TechYet\Services\Messages
+	 * @property string $id
+	 * @property string $status
+	 * @property string $body
+	 * @property string $from
+	 * @property string $to
+	 * @property string $date
+	 * @property string|null $errorCode
+	 * @property bool $hasMedia
+	 * @property int $segments
+	 */
 	class Message extends ListItem {
 		protected $id;
 		protected $status;

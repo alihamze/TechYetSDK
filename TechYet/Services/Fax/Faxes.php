@@ -128,6 +128,11 @@
 		 * @throws FaxException
 		 */
 		public function retrieveFileUrl(Fax $fax) {
+			if (empty($fax->files))
+				throw new FaxException('This fax does not have any files');
+			if (!empty($fax->files) && isset($fax->files[0]['url']))
+				return $fax->files[0]['url'];
+			
 			$url = '%s/fax/%s/media/%s/';
 			$techYet = $this->getTechYet();
 			$client = $techYet->getClient();

@@ -21,6 +21,7 @@
 	 * @property string $from
 	 * @property string $to
 	 * @property string $date
+	 * @property string $direction
 	 * @property string|null $errorCode
 	 * @property bool $hasMedia
 	 * @property int $segments
@@ -35,6 +36,7 @@
 		protected $errorCode;
 		protected $hasMedia;
 		protected $segments;
+		protected $direction;
 		
 		/**
 		 * Constructs from the API data
@@ -51,5 +53,6 @@
 			$this->errorCode = $data['error_code'];
 			$this->hasMedia = boolval($data['has_media']);
 			$this->segments = $data['segments'];
+			$this->direction = $data['direction'];
 		}
 	}

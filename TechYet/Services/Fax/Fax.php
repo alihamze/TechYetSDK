@@ -24,6 +24,7 @@
 	 * @property int $num_pages
 	 * @property array $files
 	 * @property string $date
+	 * @property string $price
 	 */
 	class Fax extends ListItem {
 		/** @var Faxes $service */
@@ -37,6 +38,7 @@
 		protected $num_pages;
 		protected $files;
 		protected $date;
+		protected $price;
 		
 		/**
 		 * Constructs from the API data
@@ -54,6 +56,7 @@
 			$this->num_pages = $data['num_pages'];
 			$this->files = $data['files'];
 			$this->date = $data['date'];
+			$this->price = $data['price'];
 		}
 		
 		/**

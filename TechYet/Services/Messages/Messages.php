@@ -84,6 +84,40 @@
 			return new ResultList($this, $details, $options);
 		}
 		
+		/**
+		 * @param $id
+		 * @param array $options
+		 * @return Message
+		 * @throws MessageException
+		 */
+		public function retrieveMessage($id, $options = []): Message {
+			$url = '%s/phones/texts/%s';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl(), $id);
+			
+			$data = array_merge($options, [
+				'api_token' => $techYet->getConfig()->getToken(),
+			]);
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_GET);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new MessageException('Could not retrieve message', 0, $e);
+			}
+			$details = json_decode($client->getReturnData(), true);
+			
+			if (!$details['success'])
+				throw new MessageException('Could not retrieve message', MessageException::ERROR_READ);
+			
+			return new Message($details['results'][0], $this);
+		}
+		
 		public function getIndividualItemType(): string {
 			return Message::class;
 		}

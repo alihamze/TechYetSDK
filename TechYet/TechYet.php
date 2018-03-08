@@ -14,6 +14,7 @@
 	use TechYet\Services\AvailablePhoneNumbers\AvailablePhoneNumbers;
 	use TechYet\Services\Fax\Fax;
 	use TechYet\Services\Fax\Faxes;
+	use TechYet\Services\Messages\Message;
 	use TechYet\Services\Messages\Messages;
 	use TechYet\Services\PhoneNumbers\PhoneNumbers;
 	use TechYet\Services\Service;
@@ -46,11 +47,16 @@
 		}
 		
 		/**
-		 * @return Messages
+		 * @param null $id
+		 * @return Messages|Message
+		 * @throws Services\Messages\MessageException
 		 */
-		public function getMessages() {
+		public function getMessages($id = null) {
 			if (empty($this->_messages))
 				$this->_messages = new Messages($this);
+			
+			if (!empty($id))
+				return $this->_messages->retrieveMessage($id);
 			
 			return $this->_messages;
 		}
@@ -76,6 +82,7 @@
 		}
 		
 		/**
+		 * @param null $id
 		 * @return Faxes|Fax
 		 * @throws Services\Fax\FaxException
 		 */

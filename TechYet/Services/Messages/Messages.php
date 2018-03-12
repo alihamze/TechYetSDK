@@ -47,7 +47,7 @@
 			
 			$details = json_decode($client->getReturnData(), true);
 			
-			return new Message($details);
+			return new Message($details, $this);
 		}
 		
 		/**

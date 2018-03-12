@@ -114,7 +114,11 @@
 			$http_status_code = curl_getinfo($this->connection, CURLINFO_HTTP_CODE);
 			
 			if ($http_status_code !== $expectedStatus) {
-				throw new ClientException('Error sending (' . $this->getHttpMethod() . ') HTTP request to "' . $this->url . '". Received ' . $http_status_code);
+				if ($http_status_code === 429) {
+					throw new ClientException('There were too many requests please try again in a few minutes.', ClientException::RATE_LIMIT_REACHED);
+				} else {
+					throw new ClientException('Error sending (' . $this->getHttpMethod() . ') HTTP request to "' . $this->url . '". Received ' . $http_status_code);
+				}
 			}
 		}
 		

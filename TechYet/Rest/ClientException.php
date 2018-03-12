@@ -10,5 +10,5 @@
 	
 	
 	class ClientException extends \Exception {
-		
+		const RATE_LIMIT_REACHED = 1000;
 	}

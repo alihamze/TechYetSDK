@@ -12,4 +12,6 @@
 	class FaxException extends \Exception {
 		const ERROR_READ = 1000;
 		const ERROR_SEND = 1001;
+		
+		const FILES_NONE_ATTACHED = 2000;
 	}

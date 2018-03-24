@@ -129,7 +129,7 @@
 		 */
 		public function retrieveFileUrl(Fax $fax) {
 			if (empty($fax->files))
-				throw new FaxException('This fax does not have any files');
+				throw new FaxException('This fax does not have any files', FaxException::FILES_NONE_ATTACHED);
 			if (!empty($fax->files) && isset($fax->files[0]['url']))
 				return $fax->files[0]['url'];
 			

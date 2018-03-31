@@ -84,4 +84,41 @@
 			
 			return new Call($details['results'][0], $this);
 		}
+		
+		/**
+		 * @param Call $call
+		 * @return string
+		 * @throws CallException
+		 */
+		public function retrieveFileUrl(Call $call) {
+			if (empty($call->files))
+				throw new CallException('This fax does not have any files', CallException::FILES_NONE_ATTACHED);
+			if (!empty($call->files) && isset($call->files[0]['url']))
+				return $call->files[0]['url'];
+			
+			$url = '%s/phones/calls/%s/media/%s/';
+			$techYet = $this->getTechYet();
+			$client = $techYet->getClient();
+			$url = sprintf($url, $techYet->getConfig()->getUrl(), $call->id, $call->files[0]['id']);
+			
+			$data = [
+				'api_token' => $techYet->getConfig()->getToken(),
+			];
+			
+			$client->reset();
+			$client->setHttpMethod($client::HTTP_METHOD_GET);
+			$client->setUrl($url);
+			$client->setParameters($data);
+			
+			try {
+				$client->send();
+			} catch (ClientException $e) {
+				throw new CallException('Could not get call file', 0, $e);
+			}
+			$details = json_decode($client->getReturnData(), true);
+			if (!$details['success'])
+				throw new CallException('Could not get call file', CallException::ERROR_READ);
+			
+			return $details['url'];
+		}
 	}

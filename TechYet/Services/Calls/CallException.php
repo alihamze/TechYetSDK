@@ -11,4 +11,6 @@
 	
 	class CallException extends \Exception {
 		const ERROR_READ = 1000;
+		
+		const FILES_NONE_ATTACHED = 2000;
 	}
